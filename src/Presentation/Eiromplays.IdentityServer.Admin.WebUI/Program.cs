@@ -29,19 +29,15 @@ builder.Services.AddAuthentication(options =>
     options.MapInboundClaims = false;
     options.SaveTokens = true;
 
-    options.Scope.Clear();
     options.Scope.Add("openid");
     options.Scope.Add("profile");
     options.Scope.Add("api");
     options.Scope.Add("offline_access");
     options.Scope.Add("roles");
+    options.Scope.Add("email");
+    
     options.ClaimActions.MapJsonKey("role", "role", "role");
-
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        NameClaimType = "name",
-        RoleClaimType = "role"
-    };
+    options.ClaimActions.MapJsonKey("picture", "picture", "picture");
 });
 
 var app = builder.Build();
